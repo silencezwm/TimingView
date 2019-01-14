@@ -28,19 +28,13 @@ import org.jetbrains.annotations.Nullable;
  */
 public class TimingView extends View {
 
-    private static final String TAG = TimingView.class.getSimpleName();
+    private static final String TAG = "TimingView";
 
     private Context mContext;
 
-    //    private int mWidthMode;
-//    private int mHeightMode;
     private int mWidthSize;
     private int mHeightSize;
 
-    /**
-     * circle radius
-     */
-    private int mCircleRadius;
     /**
      * 计时时间秒数
      */
@@ -50,7 +44,6 @@ public class TimingView extends View {
     private float sweepAngle = 0;
 
     private Paint mStartPaint;
-    private Paint mEndPaint;
     private BitmapShader mStartBitmapShader;
     private BitmapShader mEndBitmapShader;
     private Bitmap mStartBitmap;
@@ -86,7 +79,6 @@ public class TimingView extends View {
 
         typedArray.recycle();
 
-
     }
 
     private Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
@@ -94,12 +86,9 @@ public class TimingView extends View {
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
         Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
         matrix.postScale(scaleWidth, scaleHeight);
 
-        // "RECREATE" THE NEW BITMAP
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 bm, 0, 0, width, height, matrix, false);
         bm.recycle();
@@ -113,7 +102,6 @@ public class TimingView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 sweepAngle = (int) valueAnimator.getAnimatedValue();
-//                Log.d(TAG, String.format("currentValue is %f", sweepAngle));
                 invalidate();
             }
         });
@@ -123,10 +111,6 @@ public class TimingView extends View {
     private void initPaint() {
         mStartPaint = new Paint();
         mStartPaint.setAntiAlias(true);
-
-
-        mEndPaint = new Paint();
-        mEndPaint.setAntiAlias(true);
 
     }
 
@@ -204,10 +188,8 @@ public class TimingView extends View {
         mEndBitmap = getResizedBitmap(mEndBitmap, w, h);
 
         mStartBitmapShader = new BitmapShader(mStartBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        mEndBitmapShader = new BitmapShader(mEndBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
         mStartPaint.setShader(mStartBitmapShader);
-        mEndPaint.setShader(mEndBitmapShader);
     }
 
     @Override
@@ -247,7 +229,6 @@ public class TimingView extends View {
         }
 
         if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            // Single color bitmap will be created of 1x1 pixel
             bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);

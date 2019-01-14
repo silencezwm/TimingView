@@ -9,8 +9,8 @@
     tools:context=".MainActivity">
 
     <com.silencezwm.timingview.view.TimingView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:startDrawable="@mipmap/ic_launcher_round"
         app:endDrawable="@mipmap/ic_bg"
         app:duration="5"/>
